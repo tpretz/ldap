@@ -33,7 +33,7 @@ import (
 	"errors"
 	"log"
 
-	"github.com/tpretz/asn1-ber"
+	ber "github.com/tpretz/asn1-ber"
 )
 
 const (

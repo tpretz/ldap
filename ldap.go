@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/tpretz/asn1-ber"
+	ber "github.com/tpretz/asn1-ber"
 )
 
 // LDAP Application Codes
@@ -158,33 +158,33 @@ const (
 type LDAPResultCode uint8
 
 type Attribute struct {
-	attrType string
-	attrVals []string
+	AttrType string
+	AttrVals []string
 }
 type AddRequest struct {
-	dn         string
-	attributes []Attribute
+	DN         string
+	Attributes []Attribute
 }
 type DeleteRequest struct {
-	dn string
+	DN string
 }
 type ModifyDNRequest struct {
-	dn           string
-	newrdn       string
-	deleteoldrdn bool
-	newSuperior  string
+	DN           string
+	Newrdn       string
+	Deleteoldrdn bool
+	NewSuperior  string
 }
 type AttributeValueAssertion struct {
-	attributeDesc  string
-	assertionValue string
+	AttributeDesc  string
+	AssertionValue string
 }
 type CompareRequest struct {
-	dn  string
-	ava []AttributeValueAssertion
+	DN  string
+	Ava []AttributeValueAssertion
 }
 type ExtendedRequest struct {
-	requestName  string
-	requestValue string
+	RequestName  string
+	RequestValue string
 }
 
 // Adds descriptions to an LDAP Response packet for debugging

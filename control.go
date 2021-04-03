@@ -5,9 +5,10 @@
 package ldap
 
 import (
-	"strings"
 	"fmt"
-	"github.com/tpretz/asn1-ber"
+	"strings"
+
+	ber "github.com/tpretz/asn1-ber"
 )
 
 const (

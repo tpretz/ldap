@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/tpretz/asn1-ber"
+	ber "github.com/tpretz/asn1-ber"
 )
 
 func HandleAddRequest(req *ber.Packet, boundDN string, fns map[string]Adder, conn net.Conn) (resultCode LDAPResultCode) {
@@ -13,30 +13,30 @@ func HandleAddRequest(req *ber.Packet, boundDN string, fns map[string]Adder, con
 	}
 	var ok bool
 	addReq := AddRequest{}
-	addReq.dn, ok = req.Children[0].Value.(string)
+	addReq.DN, ok = req.Children[0].Value.(string)
 	if !ok {
 		return LDAPResultProtocolError
 	}
-	addReq.attributes = []Attribute{}
+	addReq.Attributes = []Attribute{}
 	for _, attr := range req.Children[1].Children {
 		if len(attr.Children) != 2 {
 			return LDAPResultProtocolError
 		}
 
 		a := Attribute{}
-		a.attrType, ok = attr.Children[0].Value.(string)
+		a.AttrType, ok = attr.Children[0].Value.(string)
 		if !ok {
 			return LDAPResultProtocolError
 		}
-		a.attrVals = []string{}
+		a.AttrVals = []string{}
 		for _, val := range attr.Children[1].Children {
 			v, ok := val.Value.(string)
 			if !ok {
 				return LDAPResultProtocolError
 			}
-			a.attrVals = append(a.attrVals, v)
+			a.AttrVals = append(a.AttrVals, v)
 		}
-		addReq.attributes = append(addReq.attributes, a)
+		addReq.Attributes = append(addReq.Attributes, a)
 	}
 	fnNames := []string{}
 	for k := range fns {
@@ -131,7 +131,7 @@ func HandleCompareRequest(req *ber.Packet, boundDN string, fns map[string]Compar
 	}
 	var ok bool
 	compReq := CompareRequest{}
-	compReq.dn, ok = req.Children[0].Value.(string)
+	compReq.DN, ok = req.Children[0].Value.(string)
 	if !ok {
 		return LDAPResultProtocolError
 	}
@@ -147,7 +147,7 @@ func HandleCompareRequest(req *ber.Packet, boundDN string, fns map[string]Compar
 	if !ok {
 		return LDAPResultProtocolError
 	}
-	compReq.ava = []AttributeValueAssertion{AttributeValueAssertion{attr, val}}
+	compReq.Ava = []AttributeValueAssertion{AttributeValueAssertion{attr, val}}
 	fnNames := []string{}
 	for k := range fns {
 		fnNames = append(fnNames, k)
@@ -200,20 +200,20 @@ func HandleModifyDNRequest(req *ber.Packet, boundDN string, fns map[string]Modif
 	}
 	var ok bool
 	mdnReq := ModifyDNRequest{}
-	mdnReq.dn, ok = req.Children[0].Value.(string)
+	mdnReq.DN, ok = req.Children[0].Value.(string)
 	if !ok {
 		return LDAPResultProtocolError
 	}
-	mdnReq.newrdn, ok = req.Children[1].Value.(string)
+	mdnReq.Newrdn, ok = req.Children[1].Value.(string)
 	if !ok {
 		return LDAPResultProtocolError
 	}
-	mdnReq.deleteoldrdn, ok = req.Children[2].Value.(bool)
+	mdnReq.Deleteoldrdn, ok = req.Children[2].Value.(bool)
 	if !ok {
 		return LDAPResultProtocolError
 	}
 	if len(req.Children) == 4 {
-		mdnReq.newSuperior, ok = req.Children[3].Value.(string)
+		mdnReq.NewSuperior, ok = req.Children[3].Value.(string)
 		if !ok {
 			return LDAPResultProtocolError
 		}

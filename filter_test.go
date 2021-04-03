@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/tpretz/asn1-ber"
+	ber "github.com/tpretz/asn1-ber"
 )
 
 type compileTest struct {

@@ -1,9 +1,10 @@
 package ldap
 
 import (
-	"github.com/tpretz/asn1-ber"
 	"log"
 	"net"
+
+	ber "github.com/tpretz/asn1-ber"
 )
 
 func HandleBindRequest(req *ber.Packet, fns map[string]Binder, conn net.Conn) (resultCode LDAPResultCode) {
