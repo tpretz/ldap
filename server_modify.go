@@ -4,7 +4,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/nmcclain/asn1-ber"
+	"github.com/tpretz/asn1-ber"
 )
 
 func HandleAddRequest(req *ber.Packet, boundDN string, fns map[string]Adder, conn net.Conn) (resultCode LDAPResultCode) {

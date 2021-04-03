@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/nmcclain/asn1-ber"
+	"github.com/tpretz/asn1-ber"
 )
 
 type Binder interface {
